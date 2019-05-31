@@ -59,9 +59,12 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-   # better_errors初期設定
-   if defined?(BetterErrors) && ENV["SSH_CLIENT"]
-     host = ENV["SSH_CLIENT"].match(/A([^ ]*)/)[1]
-     BetterErrors::Middleware.allow_ip! host if host
-   end
+  # better_errors初期設定
+  if defined?(BetterErrors) && ENV["SSH_CLIENT"]
+    host = ENV["SSH_CLIENT"].match(/A([^ ]*)/)[1]
+    BetterErrors::Middleware.allow_ip! host if host
+  end
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
 end
