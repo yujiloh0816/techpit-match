@@ -60,8 +60,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
    # better_errors初期設定
-   if defined?(BetterErrors) && ENV[“SSH_CLIENT”]
-     host = ENV[“SSH_CLIENT”].match(/A([^ ]*)/)[1]
+   if defined?(BetterErrors) && ENV["SSH_CLIENT"]
+     host = ENV["SSH_CLIENT"].match(/A([^ ]*)/)[1]
      BetterErrors::Middleware.allow_ip! host if host
    end
 end
