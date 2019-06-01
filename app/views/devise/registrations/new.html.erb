@@ -8,7 +8,7 @@
       <label for="file_photo", class="rouded-circle userProfileImg">
         <div class="userProfileImg_description">画像をアップロード</div>
         <i class="fas fa-camera fa-3x"></i>
-        </div>
+        <%= f.file_field :img_name, id: "file_photo" %>
       </label>
       <div class="userImgPreview" id="userImgPreview">
         <img id="thumbnail" class="userImgPreview_content" src="">
