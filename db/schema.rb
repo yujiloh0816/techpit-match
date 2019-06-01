@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_31_200330) do
+ActiveRecord::Schema.define(version: 2019_06_01_052105) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_05_31_200330) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", limit: 100, default: "", null: false
-    t.string "self_inrtoduction", limit: 500
+    t.string "self_introduction", limit: 500
     t.integer "sex", default: 0, null: false
     t.string "img_name"
     t.index ["email"], name: "index_users_on_email", unique: true
