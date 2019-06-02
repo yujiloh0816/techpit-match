@@ -1,5 +1,6 @@
 class MatchingController < ApplicationController
   def index
+    # http://railsdoc.com/references/pluck
     # pluck とは任意のカラムの配列を取得する
     # モデル.pluck(カラム名)
     # Reactionモデルから自分をいいねしたuser_idを配列で取得

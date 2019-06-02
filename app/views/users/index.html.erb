@@ -3,6 +3,7 @@
     <ul>
       <li class="personIcon"><%= link_to(content_tag(:i, "", class: 'fas fa-2x fa-user'), user_path(current_user.id)) %></li>
       <li class="appIcon"><%= link_to image_tag("techpit-march-icon.png"), action: "index" %></li>
+      <li class="messageIcon"><%= link_to(content_tag(:i, "", class: 'fas fa-2x fa-comments'), matching_index_path) %></li>
     </ul>
   </nav>
   <div id="tinderslide">
@@ -44,14 +45,13 @@ var postReaction = function(user_id, reaction) {
     // header内の
     // <meta name="csrf-token" content="ujGJHp1UCfJ3UlCYMygA2vFvD7J2e6UAICDiIZ+9MQW/2gAXEGc1FlpxB2B1VRHTKFuKp5oO9uzcKFbr1QjRHQ==" />
     // a@@/views/layouts/application.html.erbの下記コードが上記のheader内の情報を表示
-    // <%#= csrf_meta_tags %>
+    // < %  csrf_meta_tags % >
     // ajaxで送る内容のheader内に'X-CSRF-TOKEN'を設定する
 
       headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]')attr('content'),
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
       }
   });
-
 
 // Ajaxリクエストを送信するオプションをキーと値のペアで指定します。 このオプションに初期値を設定したい場合は、 $.ajaxSetup()を使用します。
 // .ajax( url[, settings] )
