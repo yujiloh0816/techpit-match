@@ -24,14 +24,37 @@
   </div>
 </div>
 <script>
+// Userの数をusersNum変数に代入
+// function checkUserNumで使う用
 var usersNum = <%= @users.length %>
+
+// 現在のUserのスワイプした数をカウントする用の変数
+// function checkUserNumでusersNumと比較するときに使う
+// like, dislikeした際にカウントを++増やす
 var currentUserIndex = 0;
-var postReaction = function (user_id, reaction) {
+
+
+var postReaction = function(user_id, reaction) {
+
+  // $.ajaxSetupとは
+  // 全てのAjax通信処理に対して、任意のデフォルトオプションを指定することが出来ます。
+  // http://js.studio-kingdom.com/jquery/ajax/ajax_setup
   $.ajaxSetup({
+    // JavaScripでPOSTした場合のCSRFトークンの認証が必要
+    // header内の
+    // <meta name="csrf-token" content="ujGJHp1UCfJ3UlCYMygA2vFvD7J2e6UAICDiIZ+9MQW/2gAXEGc1FlpxB2B1VRHTKFuKp5oO9uzcKFbr1QjRHQ==" />
+    // a@@/views/layouts/application.html.erbの下記コードが上記のheader内の情報を表示
+    // <%#= csrf_meta_tags %>
+    // ajaxで送る内容のheader内に'X-CSRF-TOKEN'を設定する
+
       headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]')attr('content'),
       }
   });
+
+
+// Ajaxリクエストを送信するオプションをキーと値のペアで指定します。 このオプションに初期値を設定したい場合は、 $.ajaxSetup()を使用します。
+// .ajax( url[, settings] )
   $.ajax({
     type: "POST",
     url: "<%= reactions_path %>",
@@ -39,19 +62,26 @@ var postReaction = function (user_id, reaction) {
       user_id: user_id,
       reaction: reaction,
     },
+    // ここがよくわからん。
     success: function(j_data){
       console.log("success")
     }
   });
 }
+
+
+// #tinderslideのセレクタでjTinderのイベント開始
 $("#tinderslide").jTinder({
-  onDislike: function (item) {
+  // onDislike default null のため functionをセット
+  onDislike: function(item) {
     currentUserIndex++;
     checkUserNum();
     var user_id = item[0].dataset.user_id
+    //postReaction 関数は user_id: user_idとreaction: dislikをparamsに入れてAjaxでPostする
     postReaction(user_id, 'dislike')
   },
-  onLike: function (item) {
+  // onlike default null のため functionをセット
+  onLike: function(item) {
     currentUserIndex++;
     checkUserNum();
     var user_id = item[0].dataset.user_id
@@ -59,10 +89,15 @@ $("#tinderslide").jTinder({
   },
   animationRevertSpeed: 200,
   animationSpeed: 400,
+  // threshold（閾値）
+  // デフォルトでは、画像がブラウザの表示領域（画面）に入ると読み込まれるが、それ以前に読み込みを開始したい場合は「threshold」のオプションを設定する。
   threshold: 1,
   likeSelector: '.like',
   dislikeSelector: '.dislike'
 });
+// jQueryで子要素を取得する方法
+// https://uxmilk.jp/10873
+// .actions内.like
 $('.actions .like, .actions .dislike').click(function(e){
   e.preventDefault();
   $("#tinderslide").jTinder($(this).attr('class'));
