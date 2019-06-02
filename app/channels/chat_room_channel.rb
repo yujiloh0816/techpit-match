@@ -6,8 +6,8 @@ class ChatRoomChannel < ApplicationCable::Channel
     # http://laithazer.com/blog/2017/03/25/rails-actioncable-stream-for-vs-stream-from/
     # stream_from: expects a string
     # stream_for: expects an object
-    stream_from "chat_room_#{params[:room_id]}"
-    # stream_for "chat_room_#{params[:room_id]}"
+    # エラー stream_from "chat_room_#{params[:room_id]}"
+    stream_for "chat_room_#{params[:room_id]}"
   end
 
   def unsubscribed
